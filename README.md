@@ -4,6 +4,8 @@ A realistic 3D horse-racing betting simulator for the browser, set at a floodlit
 
 Built with **Three.js + Vite**, with no backend. All betting uses virtual money only.
 
+**▶ Play now: https://nathan1658.github.io/hk-racing-sim/**
+
 ![Floodlit grandstand, skyline and infield at 跑馬地](docs/screenshots/hero.jpg)
 
 ## Screenshots
@@ -59,7 +61,7 @@ Built with **Three.js + Vite**, with no backend. All betting uses virtual money 
 ```bash
 npm install
 npm run dev        # http://localhost:5190 (also bound on the LAN)
-npm run build      # static build in dist/
+npm run build      # static build in dist/ (deployed to GitHub Pages on every push to main)
 ```
 
 | URL param | Effect |
