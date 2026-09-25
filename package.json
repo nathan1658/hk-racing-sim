@@ -1,0 +1,20 @@
+{
+  "name": "hk-racing-sim",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5190",
+    "build": "vite build",
+    "preview": "vite preview --port 5191",
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "vite": "^8.3.1"
+  }
+}

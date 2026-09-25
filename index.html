@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b4a33%22/%3E%3Cpath d=%22M8 27c2-5 3-9 7-12-3 0-5-1-6-3l4-1c-1-2 0-5 2-6l1 3c3-1 7 1 9 5 2 3 1 7-1 10l-3-1c1-2 1-4 0-6-2 3-5 5-7 11z%22 fill=%22%23d6b25e%22/%3E%3C/svg%3E" />
+    <title>跑馬地夜賽 · 香港賽馬模擬</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="stage"></div>
+    <div id="labels"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 27c2-5 3-9 7-12-3 0-5-1-6-3l4-1c-1-2 0-5 2-6l1 3c3-1 7 1 9 5 2 3 1 7-1 10l-3-1c1-2 1-4 0-6-2 3-5 5-7 11z" fill="currentColor"/></svg>
+        <div>
+          <strong>跑馬地夜賽</strong>
+          <span>香港賽馬模擬 · 模擬投注 不涉真實金錢</span>
+        </div>
+      </div>
+      <div class="meeting" id="meeting"></div>
+      <button class="ghost" id="viewBtn" title="隱藏 / 顯示面板 (H)" aria-pressed="false">睇馬場</button>
+      <div class="wallet">
+        <span>結餘</span>
+        <strong id="balance" data-testid="balance">HK$0</strong>
+      </div>
+    </header>
+
+    <aside class="panel card-panel" id="cardPanel">
+      <div class="panel-head">
+        <h2>排位表</h2>
+        <span class="muted" id="oddsTime">獨贏 / 位置 參考賠率</span>
+      </div>
+      <div class="table-wrap">
+        <table class="card" id="raceCard">
+          <thead>
+            <tr><th>馬號</th><th>綵衣</th><th class="l">馬名</th><th class="l">騎師</th><th>檔位</th><th>負磅</th><th>評分</th><th>近績</th><th>獨贏</th><th>位置</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </aside>
+
+    <aside class="panel slip-panel" id="slipPanel">
+      <div class="panel-head"><h2>投注</h2><span class="muted" id="poolHint"></span></div>
+      <div class="pool-tabs" id="poolTabs" role="tablist"></div>
+      <div class="selection" id="selection"><span class="muted">請在排位表點選馬匹</span></div>
+      <div class="stake-row">
+        <label for="stake">每注金額 HK$</label>
+        <input id="stake" type="number" min="10" step="10" value="10" inputmode="numeric" />
+      </div>
+      <div class="quick" id="quick"></div>
+      <div class="slip-sum">
+        <span id="comboInfo">0 注</span>
+        <span>合共 <strong id="slipTotal">HK$0</strong></span>
+      </div>
+      <div class="est muted" id="estDiv"></div>
+      <button class="btn gold" id="placeBtn" disabled>落注</button>
+      <h3>本場注項</h3>
+      <ul class="bets" id="betList"><li class="muted">未有注項</li></ul>
+      <button class="btn green big" id="startBtn">開始比賽 ▶</button>
+    </aside>
+
+    <section class="live" id="live" hidden>
+      <div class="live-top">
+        <div class="race-clock"><span id="clock">0:00.00</span><small id="remaining"></small></div>
+        <div class="order" id="order" data-testid="running-order"></div>
+      </div>
+      <div class="live-bottom">
+        <p class="commentary" id="commentary" aria-live="polite"></p>
+        <div class="controls">
+          <div class="seg" id="camButtons"></div>
+          <div class="seg" id="speedButtons"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal" id="results" hidden>
+      <div class="modal-box">
+        <div class="modal-head">
+          <h2 id="resTitle">賽果</h2>
+          <span class="muted" id="resSub"></span>
+        </div>
+        <div class="res-grid">
+          <div>
+            <table class="card res" id="resTable"><thead><tr><th>名次</th><th>馬號</th><th class="l">馬名</th><th class="l">騎師</th><th>檔位</th><th>頭馬距離</th><th>沿途走位</th><th>完成時間</th><th>獨贏</th></tr></thead><tbody></tbody></table>
+          </div>
+          <div>
+            <h3>派彩 <small class="muted">(每 $10)</small></h3>
+            <table class="card div" id="divTable"><tbody></tbody></table>
+            <h3>你的注項</h3>
+            <ul class="bets" id="resBets"></ul>
+            <div class="net" id="resNet"></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn green big" id="nextBtn">下一場 ▶</button></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <div class="banner" id="banner"></div>
+    <div class="loading" id="loading"><div class="spinner"></div><p>馬場亮燈中…</p></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
