@@ -77,6 +77,7 @@ Press **H** (or tap **睇馬場**) to hide the panels and look around the course
 ```bash
 npm test           # core unit tests: track geometry, race sim, pools & dividends
 npm run e2e        # Playwright E2E in system Chrome with the real GPU (Metal/ANGLE)
+BASE_URL=https://nathan1658.github.io/hk-racing-sim/ npm run e2e   # same suite against the live site
 ```
 
 The E2E suite plays a full meeting through the real UI:

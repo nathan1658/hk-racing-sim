@@ -24,7 +24,7 @@ test('full meeting flow: card → bets → 3D race → results → payouts → n
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
 
-  await page.goto('/?seed=11&speed=6');
+  await page.goto('./?seed=11&speed=6');
   await expect(page.locator('#loading')).toHaveClass(/done/, { timeout: 30_000 });
   await expect.poll(() => page.evaluate(() => window.__hkrs.phase)).toBe('idle');
 
@@ -154,7 +154,7 @@ test('full meeting flow: card → bets → 3D race → results → payouts → n
 });
 
 test('balance persists across reloads (per-browser)', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('./');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await expect(page.locator('#loading')).toHaveClass(/done/, { timeout: 30_000 });
@@ -169,7 +169,7 @@ test('balance persists across reloads (per-browser)', async ({ page }) => {
 
 test('phone layout: no horizontal scroll, panels usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/?seed=3');
+  await page.goto('./?seed=3');
   await expect(page.locator('#loading')).toHaveClass(/done/, { timeout: 30_000 });
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
